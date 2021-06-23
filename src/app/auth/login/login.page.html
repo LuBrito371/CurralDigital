@@ -1,19 +1,23 @@
 
 <ion-content class="ion-padding">
   <h1 class="ion-text-center">
-    <ion-icon></ion-icon>
+    <ion-icon src="assets/icon/boi.svg"></ion-icon>
   </h1>
 
-  <form action="">
+  <form [formGroup]="authForm" (submit)="onSubmit()">
     <ion-item>
-      <ion-input type="email" placeholder="Email" inputmode="email"></ion-input>
+      <ion-input type="email" placeholder="Email" inputmode="email" formControlName="email"></ion-input>
+      <ion-note color="danger" slot="end" *ngIf="email.dirty && email.hasError('required')">Obrigatório</ion-note>
+      <ion-note color="danger" slot="end" *ngIf="email.dirty && email.hasError('email')">Email inválido</ion-note>
     </ion-item>
 
     <ion-item>
-      <ion-input type="password" placeholder="Password" inputmode="password"></ion-input>
+      <ion-input type="password" placeholder="Senha" inputmode="password" formControlName="password"></ion-input>
+      <ion-note color="danger" slot="end" *ngIf="password.dirty && password.hasError('required')">Obrigatório</ion-note>
+      <ion-note color="danger" slot="end" *ngIf="password.dirty && password.hasError('minlength')">Mín. 6 caracteres</ion-note>
     </ion-item>
 
-    <ion-button type="submit" expand="block"></ion-button>
-    <ion-button expand="block"></ion-button>
+    <ion-button type="submit" expand="block" fill="clear" [disabled]="authForm.invalid">Login</ion-button>
+    <ion-button expand="block"  fill="clear">Cadastre-se</ion-button>
   </form>
 </ion-content>
