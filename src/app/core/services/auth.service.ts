@@ -1,13 +1,38 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
-import { User, AuthProvider} from './auth.types';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AuthOptions, User, AuthProvider} from './auth.types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private afAuth: AngularFireAuth) {}
+  authState$: Observable<firebase.User>;
+
+  constructor(private afAuth: AngularFireAuth) {
+    this.authState$ = this.afAuth.authState;
+  }
+
+  get isAuthenticated(): Observable<boolean>{
+    return this.authState$.pipe(map(user => user !== null));
+  }
+
+  authenticate({isSignIn, provider, user}: AuthOptions): Promise<auth.UserCredential>{
+    let operation: Promise<auth.UserCredential>;
+    if(provider !== AuthProvider.Email){
+      operation = this.signInWithPopup(provider);
+    } else{
+      operation = isSignIn ? this.signInWithEmail(user) : this.signUpWithEmail(user);
+    }
+
+    return operation;
+  }
+
+  logOut(): Promise<void>{
+    return this.afAuth.auth.signOut();
+  }
 
   private signInWithEmail({ email, password }: User): Promise<auth.UserCredential> {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password);
@@ -27,15 +52,15 @@ export class AuthService {
       );
   }
 
-  //private signInWithPopup(provider: AuthProvider): Promise<auth.UserCredential>{
-  //let signInProvider = null;
+  private signInWithPopup(provider: AuthProvider): Promise<auth.UserCredential>{
+  let signInProvider = null;
 
-  //    switch(provider){
-  //    case AuthProvider.Facebook:
-  //    signInProvider = new auth.FacebookAuthProvider();
-  //  break;
-  // }
+      switch(provider){
+      case AuthProvider.Facebook:
+      signInProvider = new auth.FacebookAuthProvider();
+    break;
+   }
 
-  //return this.afAuth.auth.signInWithPopup(signInProvider);
-  // }
+  return this.afAuth.auth.signInWithPopup(signInProvider);
+   }
 }
