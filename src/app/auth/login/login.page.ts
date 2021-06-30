@@ -1,9 +1,13 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { AuthProvider } from 'src/app/core/services/auth.types';
+import { OverlayService } from 'src/app/core/services/overlay.service';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +15,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
   styleUrls: ['./login.page.scss']
 })
 export class LoginPage implements OnInit {
+  authProviders = AuthProvider;
   authForm: FormGroup;
   configs = {
     isSignIn: true,
@@ -19,7 +24,7 @@ export class LoginPage implements OnInit {
   };
   private nameControl = new FormControl('', [Validators.required, Validators.minLength(3)]);
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private authService: AuthService, private fb: FormBuilder, private overlayService: OverlayService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -55,8 +60,24 @@ export class LoginPage implements OnInit {
       : this.authForm.removeControl('name');
   }
 
-  onSubmit(): void{
-    console.log('Auth form:', this.authForm.value);
+  async onSubmit(provider: AuthProvider): Promise<void>{
+    const loading = await this.overlayService.loading();
+    try {
+      const credentials = await this.authService.authenticate({
+        isSignIn: this.configs.isSignIn,
+        user: this.authForm.value,
+        provider
+      });
+      console.log('Autenticado: ', credentials);
+      console.log('Redirecionando...');
+    } catch (error) {
+      console.log('Erro de Autenticação: ', error);
+      await this.overlayService.toast({
+        message: 'Email ou senha incorretos'
+      });
+    } finally{
+      loading.dismiss();
+    }
   }
 
 }

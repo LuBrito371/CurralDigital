@@ -7,7 +7,7 @@
   </h1>
   <form
     [formGroup]="authForm"
-    (submit)="onSubmit()"
+    (submit)="onSubmit(authProviders.Email)"
   >
 
     <ng-container *ngIf="!configs.isSignIn">
