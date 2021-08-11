@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Lista de Animais</ion-title>
+
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <app-animal-item *ngFor="let vaca of (animals$ | async)" [animal]="vaca"></app-animal-item>
+  </ion-list>
+</ion-content>

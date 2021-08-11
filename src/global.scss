@@ -25,14 +25,16 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-ion-content {
-  --ion-background-color: #f6d04d;
-}
-
 * {
   color: #de4307;
+}
+
+ion-header,ion-content {
+  --ion-background-color: #f6d04d;
 }
 
 ion-input {
   background-color: transparent;
 }
+
+
