@@ -1,19 +1,34 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../core/guards/auth.guard';
-
-import { MainPage } from './main.page';
 
 const routes: Routes = [
   {
     path: '',
     canActivateChild: [AuthGuard],
-    component: MainPage
-  }
+    children: [
+      {
+        path: 'create',
+        loadChildren: () => import('./animals-save/animals-save.module').then( m => m.AnimalsSavePageModule)
+      },
+      {
+        path: 'edit/:id',
+        loadChildren: () => import('./animals-save/animals-save.module').then( m => m.AnimalsSavePageModule)
+      },
+      {
+        path: 'animal-list',
+        loadChildren: () => import('./animal-list/animal-list.module').then( m => m.AnimalListPageModule)
+      },
+      {
+        path: '',
+        loadChildren: () => import('src/app/main/page/main.module').then((m) => m.MainPageModule)
+      },
+    ]
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class MainPageRoutingModule {}
+export class MainRoutingModule { }

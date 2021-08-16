@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Vaca } from '../animal-model/vaca.model';
+import { Animal } from '../../models/animal.model';
 
 @Component({
   selector: 'app-animal-item',
@@ -7,10 +7,9 @@ import { Vaca } from '../animal-model/vaca.model';
   styleUrls: ['./animal-item.component.scss'],
 })
 export class AnimalItemComponent  {
-
-  @Input() animal: Vaca;
-  @Output() update = new EventEmitter<Vaca>();
-  @Output() delete = new EventEmitter<Vaca>();
+  @Input() animal: Animal;
+  @Output() update = new EventEmitter<Animal>();
+  @Output() delete = new EventEmitter<Animal>();
 
 
 }

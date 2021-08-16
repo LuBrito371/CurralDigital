@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../shared/shared/shared.module';
+import { SharedModule } from 'src/app/shared/shared/shared.module';
+import { ComponentsModule } from '../components/components.module';
 
 import { AnimalListPageRoutingModule } from './animal-list-routing.module';
-import { AnimalListPage } from './animal-list.page';
-import { ComponentsModule } from './components/components.module';
 
+import { AnimalListPage } from './animal-list.page';
 
 @NgModule({
   imports: [

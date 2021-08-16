@@ -1,15 +1,12 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../shared/shared/shared.module';
 
-import { MainPageRoutingModule } from './main-routing.module';
+import { MainRoutingModule } from 'src/app/main/main-routing.module';
 
-import { MainPage } from './main.page';
 
 @NgModule({
+  declarations: [],
   imports: [
-    SharedModule,
-    MainPageRoutingModule
-  ],
-  declarations: [MainPage]
+    MainRoutingModule
+  ]
 })
-export class MainPageModule {}
+export class MainModule { }

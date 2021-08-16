@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start" defaultHref="/main"></ion-back-button>
+    <ion-title>{{ pageTitle }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h1 class="ion-text-center">
+    <ion-icon
+      src="assets/icon/boi.svg"
+      class="icon-7em"
+    ></ion-icon>
+  </h1>
+
+  <form [formGroup]="animalForm" (submit)="onSubmit()" >
+    <ion-item>
+    <ion-input type="text" placeholder="Brinco" autofocus="true" inputmode="text" formControlName="brinco"></ion-input>
+  </ion-item>
+  <ion-item>
+  <ion-input type="number" placeholder="Peso(kg)" autofocus="true" inputmode="number" formControlName="peso"></ion-input>
+  </ion-item>
+  <ion-item>
+  <ion-input type="number" placeholder="Idade em meses" autofocus="true" inputmode="number" formControlName="meses"></ion-input>
+  </ion-item>
+  <ion-item>
+  <ion-input type="number" placeholder="Bezerros" autofocus="true" inputmode="number"formControlName="bezerros"></ion-input>
+  </ion-item>
+  <ion-item>
+  <p slot="start">Cio</p>
+  <ion-toggle slot="end" formControlName="cio"></ion-toggle>
+  </ion-item>
+  <ion-button type="submit" [disabled]="animalForm.invalid">Salvar</ion-button>
+  </form>
+</ion-content>

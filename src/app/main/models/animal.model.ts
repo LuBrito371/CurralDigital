@@ -1,8 +1,8 @@
-export interface Vaca{
+export interface Animal{
   id: string;
   brinco: string;
   peso: number;
   meses: number;
-  cio: boolean;
   bezerros: number;
+  cio: boolean;
 }
