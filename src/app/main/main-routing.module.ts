@@ -20,6 +20,15 @@ const routes: Routes = [
         loadChildren: () => import('./animal-list/animal-list.module').then( m => m.AnimalListPageModule)
       },
       {
+        path: 'femea',
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('src/app/main/page/main.module').then((m) => m.MainPageModule)
+          }
+        ]
+      },
+      {
         path: '',
         loadChildren: () => import('src/app/main/page/main.module').then((m) => m.MainPageModule)
       },

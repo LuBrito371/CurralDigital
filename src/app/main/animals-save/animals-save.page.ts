@@ -31,7 +31,6 @@ export class AnimalsSavePage implements OnInit {
       return;
      }
      this.animalId = animalId;
-     console.log('animalId ', animalId);
      this.pageTitle = 'Editar Dados';
      this.animalsService
       .get(animalId)
@@ -60,8 +59,12 @@ export class AnimalsSavePage implements OnInit {
       message: 'Salvando..'
     });
     try {
-      const animal = await this.animalsService.create(this.animalForm.value);
-      console.log('Animal criado', animal);
+      const animal = !this.animalId
+      ? await this.animalsService.create(this.animalForm.value)
+      : await this.animalsService.update({
+        id: this.animalId,
+        ...this.animalForm.value
+      });
       this.navCtrl.navigateBack('/main/animal-list');
     } catch (error) {
       console.log('Erro salvando animal ', error);

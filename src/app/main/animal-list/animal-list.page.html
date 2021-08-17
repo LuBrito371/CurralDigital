@@ -8,7 +8,7 @@
 <ion-content class="ion-padding">
   <ion-list *ngIf="(animal$ | async) as animals">
     <ng-container *ngIf="animals.length > 0; else noAnimals">
-      <app-animal-item *ngFor="let animal of animals" [animal]="animal" (update)="onUpdate($event)"></app-animal-item>
+      <app-animal-item *ngFor="let animal of animals" [animal]="animal" (update)="onUpdate($event)" (delete)="onDelete($event)"></app-animal-item>
     </ng-container>
     <ng-template #noAnimals>
       <ion-item lines="none">Sem animais ainda...</ion-item>

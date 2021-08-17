@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Observable, of } from 'rxjs';
+import { OverlayService } from 'src/app/core/services/overlay.service';
 import { Animal } from '../models/animal.model';
 import { AnimalsService } from '../services/animals.service';
 
@@ -13,7 +14,7 @@ export class AnimalListPage {
 
   animal$: Observable<Animal[]>;
 
-  constructor(private navCtrl: NavController, private animalsService: AnimalsService) { }
+  constructor(private navCtrl: NavController, private overlayService: OverlayService, private animalsService: AnimalsService) { }
 
   ionViewDidEnter(): void {
     this.animal$ = this.animalsService.getAll();
@@ -21,6 +22,24 @@ export class AnimalListPage {
 
   onUpdate(animal: Animal): void{
     this.navCtrl.navigateForward(['main', 'edit', animal.id]);
+  }
+
+  async onDelete(animal: Animal): Promise<void>{
+    await this.overlayService.alert({
+      message: `Tem certeza que deseja deletar "${animal.brinco}"?`,
+      buttons: [
+        {
+          text: 'Yes',
+          handler: async () => {
+            await this.animalsService.delete(animal);
+            await this.overlayService.toast({
+              message: `"${animal.brinco}" deletado`
+            });
+          }
+        },
+        'No'
+      ]
+    });
   }
 
 }
