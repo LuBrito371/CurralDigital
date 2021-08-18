@@ -12,6 +12,7 @@
 
   <form [formGroup]="animalForm" (submit)="onSubmit()">
     <ion-item>
+      <ion-icon src="assets/icon/tag.svg" slot="start"></ion-icon>
       <ion-input
         type="text"
         placeholder="Brinco"
@@ -21,6 +22,7 @@
       ></ion-input>
     </ion-item>
     <ion-item>
+      <ion-icon name="barbell" slot="start"></ion-icon>
       <ion-input
         type="number"
         placeholder="Peso(kg)"
@@ -30,6 +32,7 @@
       ></ion-input>
     </ion-item>
     <ion-item>
+      <ion-icon name="calendar" slot="start"></ion-icon>
       <ion-input
         type="number"
         placeholder="Idade em meses"
@@ -39,6 +42,7 @@
       ></ion-input>
     </ion-item>
     <ion-item>
+      <ion-icon src="assets/icon/bezerrin.svg" slot="start" color="#de4307"></ion-icon>
       <ion-input
         type="number"
         placeholder="Bezerros"
@@ -48,7 +52,8 @@
       ></ion-input>
     </ion-item>
     <ion-item>
-      <p slot="start">Cio</p>
+      <ion-icon name="time" slot="start"></ion-icon>
+      <p>Cio</p>
       <ion-toggle slot="end" formControlName="cio"></ion-toggle>
     </ion-item>
     <ion-button type="submit" [disabled]="animalForm.invalid">Salvar</ion-button

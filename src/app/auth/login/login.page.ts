@@ -76,7 +76,7 @@ export class LoginPage implements OnInit {
     } catch (error) {
       console.log('Erro de Autenticação: ', error);
       await this.overlayService.toast({
-        message: error
+        message: 'Email ou senha inválidos'
       });
     } finally{
       loading.dismiss();
