@@ -1,9 +1,7 @@
-export interface Animal{
+export interface Male{
   id: string;
   brinco: string;
   peso: number;
   nascimento: string;
   apartação: string;
-  monta: string;
-  parto: string;
 }

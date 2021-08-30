@@ -14,12 +14,13 @@ import {
 import { Observable } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
+import { OverlayService } from '../services/overlay.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private overlayService: OverlayService, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -54,6 +55,9 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
         if (!is) {
           this.router.navigate(['/login'], {
             queryParams: { redirect },
+          });
+          this.overlayService.toast({
+            message: 'Por favor, cadastre-se ou faça login para continuar'
           });
         }
       })

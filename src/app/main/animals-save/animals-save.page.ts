@@ -3,10 +3,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { take } from 'rxjs/operators';
 import { OverlayService } from 'src/app/core/services/overlay.service';
+import { MontaPartoPage } from '../monta-parto/monta-parto.page';
 import { AnimalsService } from '../services/animals.service';
+import { VacinasPage } from '../vacinas/vacinas.page';
 
 @Component({
   selector: 'app-animals-save',
@@ -18,7 +20,7 @@ export class AnimalsSavePage implements OnInit {
   pageTitle = '...';
   animalId: string = undefined;
 
-  constructor(private fb: FormBuilder, private navCtrl: NavController, private overlayService: OverlayService, private route: ActivatedRoute, private animalsService: AnimalsService) { }
+  constructor(private fb: FormBuilder, private navCtrl: NavController, private modalCtrl: ModalController, private overlayService: OverlayService, private route: ActivatedRoute, private animalsService: AnimalsService) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -35,12 +37,13 @@ export class AnimalsSavePage implements OnInit {
      this.animalsService
       .get(animalId)
       .pipe(take(1))
-      .subscribe(({ brinco, peso, meses, bezerros, cio})=>{
+      .subscribe(({ brinco, peso, nascimento, apartação, monta, parto})=>{
         this.animalForm.get('brinco').setValue(brinco);
         this.animalForm.get('peso').setValue(peso);
-        this.animalForm.get('meses').setValue(meses);
-        this.animalForm.get('bezerros').setValue(bezerros);
-        this.animalForm.get('cio').setValue(cio);
+        this.animalForm.get('nascimento').setValue(nascimento);
+        this.animalForm.get('apartação').setValue(apartação);
+        this.animalForm.get('monta').setValue(monta);
+        this.animalForm.get('parto').setValue(PageTransitionEvent);
       });
    }
 
@@ -48,9 +51,10 @@ export class AnimalsSavePage implements OnInit {
     this.animalForm = this.fb.group({
       brinco: ['',[Validators.required, Validators.minLength(3)]],
       peso: ['', [Validators.required, Validators.min(0)]],
-      meses: ['', [Validators.required, Validators.min(0)]],
-      bezerros: ['', [Validators.required, Validators.min(0)]],
-      cio: [false],
+      nascimento: ['', [Validators.required, Validators.minLength(8)]],
+      apartação: ['', [Validators.required, Validators.minLength(8)]],
+      monta: ['', [Validators.required, Validators.minLength(8)]],
+      parto: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -65,7 +69,7 @@ export class AnimalsSavePage implements OnInit {
         id: this.animalId,
         ...this.animalForm.value
       });
-      this.navCtrl.navigateBack('/main/animal-list');
+      this.navCtrl.navigateBack('/main/female-list');
     } catch (error) {
       console.log('Erro salvando animal ', error);
       await this.overlayService.toast({
@@ -76,4 +80,28 @@ export class AnimalsSavePage implements OnInit {
     }
   }
 
+
+  async saveVacinas(){
+    const modal = await this.modalCtrl.create({
+      component: VacinasPage
+      });
+
+      await modal.present();
+
+      const data = await modal.onDidDismiss();
+      console.log(data);
+
+    }
+
+    async montasAndPartos(){
+    const modal = await this.modalCtrl.create({
+      component: MontaPartoPage
+      });
+
+      await modal.present();
+
+      const data = await modal.onDidDismiss();
+      console.log(data);
+
+    }
 }

@@ -8,31 +8,42 @@ const routes: Routes = [
     canActivateChild: [AuthGuard],
     children: [
       {
-        path: 'create',
+        path: 'create-female',
         loadChildren: () => import('./animals-save/animals-save.module').then( m => m.AnimalsSavePageModule)
       },
       {
-        path: 'edit/:id',
+        path: 'edit-female/:id',
         loadChildren: () => import('./animals-save/animals-save.module').then( m => m.AnimalsSavePageModule)
       },
       {
-        path: 'animal-list',
+        path: 'female-list',
         loadChildren: () => import('./animal-list/animal-list.module').then( m => m.AnimalListPageModule)
       },
       {
-        path: 'femea',
-        children: [
-          {
-            path: '',
-            loadChildren: () => import('src/app/main/page/main.module').then((m) => m.MainPageModule)
-          }
-        ]
+        path: 'male-list',
+        loadChildren: () => import('./macho-list/macho-list.module').then( m => m.MachoListPageModule)
+      },
+      {
+        path: 'create-male',
+        loadChildren: () => import('./macho-save/macho-save.module').then( m => m.MachoSavePageModule)
+      },
+      {
+        path: 'edit-male/:id',
+        loadChildren: () => import('./macho-save/macho-save.module').then( m => m.MachoSavePageModule)
       },
       {
         path: '',
         loadChildren: () => import('src/app/main/page/main.module').then((m) => m.MainPageModule)
       },
     ]
+  },
+  {
+    path: 'vacinas',
+    loadChildren: () => import('./vacinas/vacinas.module').then( m => m.VacinasPageModule)
+  },
+  {
+    path: 'monta-parto',
+    loadChildren: () => import('./monta-parto/monta-parto.module').then( m => m.MontaPartoPageModule)
   },
 ];
 

@@ -21,7 +21,7 @@ export class AnimalListPage {
   }
 
   onUpdate(animal: Animal): void{
-    this.navCtrl.navigateForward(['main', 'edit', animal.id]);
+    this.navCtrl.navigateForward(['main', 'edit-female', animal.id]);
   }
 
   async onDelete(animal: Animal): Promise<void>{
@@ -29,7 +29,7 @@ export class AnimalListPage {
       message: `Tem certeza que deseja deletar "${animal.brinco}"?`,
       buttons: [
         {
-          text: 'Yes',
+          text: 'Sim',
           handler: async () => {
             await this.animalsService.delete(animal);
             await this.overlayService.toast({
@@ -37,7 +37,7 @@ export class AnimalListPage {
             });
           }
         },
-        'No'
+        'Não'
       ]
     });
   }

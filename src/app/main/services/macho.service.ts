@@ -3,14 +3,13 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { firestore } from 'firebase';
 import { Firestore } from 'src/app/core/classes/firestore.class';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { Animal } from '../models/animal.model';
+import { Male } from '../models/macho.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AnimalsService extends Firestore<Animal> {
-
-  constructor(private authService: AuthService, db: AngularFirestore) {
+export class MachoService extends Firestore<Male>{
+constructor(private authService: AuthService, db: AngularFirestore) {
     super(db);
     this.init();
    }
@@ -18,11 +17,10 @@ export class AnimalsService extends Firestore<Animal> {
    private init(): void{
      this.authService.authState$.subscribe(user => {
        if(user){
-         this.setCollection(`/users/${user.uid}/female/`, (ref: firestore.CollectionReference) => ref.orderBy('brinco', 'asc'));
+         this.setCollection(`/users/${user.uid}/male/`, (ref: firestore.CollectionReference) => ref.orderBy('brinco', 'asc'));
          return;
        }
        this.setCollection(null);
      });
    }
-
 }

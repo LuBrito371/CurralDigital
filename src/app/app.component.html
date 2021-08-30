@@ -1,3 +1,24 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+
+  <ion-menu contentId="menu-content" menuId="main-menu" [disabled]="true">
+    <ion-header>
+      <ion-toolbar>
+        <ion-icon src="assets/icon/cerca.svg" slot="start"></ion-icon>
+        <p *ngIf="user">{{ user.displayName }}</p>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <ion-menu-toggle autoHide="false">
+        <ion-list>
+        <ion-item button (click)="logout()">
+    <ion-icon slot="icon-only"></ion-icon>
+    <ion-label>Sair</ion-label>
+  </ion-item>
+      </ion-list>
+      </ion-menu-toggle>
+    </ion-content>
+
+  </ion-menu>
+  <ion-router-outlet id="menu-content"></ion-router-outlet>
 </ion-app>
