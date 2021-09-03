@@ -4,6 +4,4 @@ export interface Animal{
   peso: number;
   nascimento: string;
   apartação: string;
-  monta: string;
-  parto: string;
 }

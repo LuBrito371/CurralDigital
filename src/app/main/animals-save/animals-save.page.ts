@@ -37,13 +37,11 @@ export class AnimalsSavePage implements OnInit {
      this.animalsService
       .get(animalId)
       .pipe(take(1))
-      .subscribe(({ brinco, peso, nascimento, apartação, monta, parto})=>{
+      .subscribe(({ brinco, peso, nascimento, apartação})=>{
         this.animalForm.get('brinco').setValue(brinco);
         this.animalForm.get('peso').setValue(peso);
         this.animalForm.get('nascimento').setValue(nascimento);
         this.animalForm.get('apartação').setValue(apartação);
-        this.animalForm.get('monta').setValue(monta);
-        this.animalForm.get('parto').setValue(PageTransitionEvent);
       });
    }
 
@@ -53,8 +51,6 @@ export class AnimalsSavePage implements OnInit {
       peso: ['', [Validators.required, Validators.min(0)]],
       nascimento: ['', [Validators.required, Validators.minLength(8)]],
       apartação: ['', [Validators.required, Validators.minLength(8)]],
-      monta: ['', [Validators.required, Validators.minLength(8)]],
-      parto: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 

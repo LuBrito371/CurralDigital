@@ -50,8 +50,8 @@ export class MachoSavePage implements OnInit {
     this.maleForm = this.fb.group({
       brinco: ['',[Validators.required, Validators.minLength(3)]],
       peso: ['', [Validators.required, Validators.min(0)]],
-      nascimento: ['', [Validators.required, Validators.minLength(6)]],
-      apartação: ['', [Validators.required, Validators.minLength(6)]],
+      nascimento: ['', [Validators.minLength(6)]],
+      apartação: ['', [Validators.minLength(6)]],
     });
   }
 

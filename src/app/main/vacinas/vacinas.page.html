@@ -5,12 +5,14 @@
 </ion-header>
 
 <ion-content>
-  <ion-item>
+  <form [formGroup]="vacinaForm" (submit)="onSubmit()">
+    <ion-item>
     <ion-label>Teste</ion-label>
-    <ion-input type="text" placeholder="Awesome Input" #awesome></ion-input>
+    <ion-input type="text" placeholder="Awesome Input" formControlName="nome" #awesome></ion-input>
   </ion-item>
 
   <ion-button type="submit" (click)="submit(awesome.value)">
     Click me
   </ion-button>
+  </form>
 </ion-content>

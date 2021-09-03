@@ -13,7 +13,7 @@
   <form [formGroup]="animalForm" (submit)="onSubmit()">
     <ion-item>
       <ion-icon src="assets/icon/tag.svg" slot="start"></ion-icon>
-      <ion-label>Nº do Brinco</ion-label>
+      <ion-label>Nº do Brinco:</ion-label>
       <ion-input
         type="text"
         autofocus="true"
@@ -23,7 +23,7 @@
     </ion-item>
     <ion-item>
       <ion-icon name="barbell" slot="start"></ion-icon>
-      <ion-label>Peso</ion-label>
+      <ion-label>Peso:</ion-label>
       <ion-input
         type="number"
         autofocus="true"
@@ -33,7 +33,7 @@
     </ion-item>
     <ion-item>
       <ion-icon name="calendar" slot="start"></ion-icon>
-      <ion-label>Data de Nascimento</ion-label>
+      <ion-label>Nascimento:</ion-label>
       <ion-input
         type="date"
         autofocus="true"
@@ -42,31 +42,14 @@
     </ion-item>
     <ion-item>
       <ion-icon name="calendar" slot="start"></ion-icon>
-      <ion-label>Data de Apartação</ion-label>
+      <ion-label>Apartação:</ion-label>
       <ion-input
         type="date"
         autofocus="true"
         formControlName="apartação"
       ></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-icon name="calendar" slot="start"></ion-icon>
-      <ion-label>Data de Monta/IA</ion-label>
-      <ion-input
-        type="date"
-        autofocus="true"
-        formControlName="monta"
-      ></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-icon name="calendar" slot="start"></ion-icon>
-      <ion-label>Data de Parto</ion-label>
-      <ion-input
-        type="date"
-        autofocus="true"
-        formControlName="parto"
-      ></ion-input>
-    </ion-item>
+
 
     <ion-button (click)="saveVacinas()"> Vacinas </ion-button>
 
