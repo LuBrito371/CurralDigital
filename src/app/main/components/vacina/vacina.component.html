@@ -1,0 +1,18 @@
+<ion-item-sliding #sliding>
+  <ion-item (click)="update.emit(vacina)">
+    <p>{{ vacina.nome }}</p>
+    <p slot="end">{{vacina.data}}</p>
+  </ion-item>
+
+  <ion-item-options side="start">
+    <ion-item-option
+      (click)="delete.emit(vacina); sliding.close()"
+    >
+      <ion-icon
+        slot="icon-only"
+        name="trash"
+      ></ion-icon>
+    </ion-item-option>
+
+  </ion-item-options>
+</ion-item-sliding>

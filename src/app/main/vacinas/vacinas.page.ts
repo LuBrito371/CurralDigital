@@ -1,8 +1,11 @@
-/* eslint-disable @typescript-eslint/member-ordering */
+/* eslint-disable max-len */
 /* eslint-disable object-shorthand */
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+import { ModalController, NavController } from '@ionic/angular';
+import { Observable, of } from 'rxjs';
+import { Vacina } from '../models/vacina.model';
 import { VacinaService } from '../services/vacina.service';
 
 @Component({
@@ -10,33 +13,54 @@ import { VacinaService } from '../services/vacina.service';
   templateUrl: './vacinas.page.html',
   styleUrls: ['./vacinas.page.scss'],
 })
-export class VacinasPage implements OnInit {
-
+export class VacinasPage implements OnInit{
+  vacina$: Observable<Vacina[]>;
   vacinaForm: FormGroup;
+  maleId: string = undefined;
+  vacina: Vacina;
 
-  constructor(private modelCtrl: ModalController, private fb: FormBuilder, private vacinaService: VacinaService) { }
+  constructor(
+    public modalCtrl: ModalController,
+    private vacinaService: VacinaService,
+    private route: ActivatedRoute,
+    private navCtrl: NavController,
+    private fb: FormBuilder
+  ) {}
 
-  ngOnInit(): void {
+  ngOnInit(){
     this.createForm();
   }
 
-  private createForm(): void{
+  ionViewDidEnter(): void {
+
+    this.vacina$  = this.vacinaService.getAll();
+  }
+
+  createForm(): void {
     this.vacinaForm = this.fb.group({
-      nome: ['',[Validators.required]]
+      nome: ['', [Validators.required]],
+      data: ['', [Validators.required]],
     });
   }
 
-  async onSubmit(): Promise<void>{
-    try{
-      const vacina = this.vacinaService.create(this.vacinaForm.value);
-      console.log('Vacina ', vacina);
-    }catch(error){
-      console.log('Error ', error);
+  async saveVacina(): Promise<void> {
+    const maleId = this.route.snapshot.paramMap.get('id');
+    try {
+
+      if(maleId){
+        this.vacina = this.vacinaForm.value;
+        this.vacina.idAnimal = maleId;
+        this.vacinaService.vacina.idAnimal = this.vacina.idAnimal;
+        this.vacinaService.create(this.vacina);
+        console.log(this.vacina);
+      }
+
+    } catch (error) {
+      console.error(error);
     }
   }
 
-  submit(awesome){
-    this.modelCtrl.dismiss({awesome: awesome});
+  onBack(maleId): void {
+    this.navCtrl.navigateBack(['main', 'edit-male', maleId]);
   }
-
 }

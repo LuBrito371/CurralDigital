@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Routes } from '@angular/router';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { AnimalsService } from '../services/animals.service';
+import { MachoService } from '../services/macho.service';
 
 
 
@@ -9,10 +12,24 @@ import { Routes } from '@angular/router';
   styleUrls: ['./main.page.scss'],
 })
 export class MainPage implements OnInit {
+  user: firebase.User;
 
-  constructor() { }
+  constructor(private machoService: MachoService, private femaleService: AnimalsService, private authService: AuthService) { }
 
   ngOnInit() {
+    this.authService.authState$.subscribe(user => (this.user  = user));
+
+    this.maleLength();
+    this.femaleLength();
+  }
+
+  maleLength(){
+    const length = this.machoService.length();
+    console.log(length);
+  }
+
+  femaleLength(){
+
   }
 
 }

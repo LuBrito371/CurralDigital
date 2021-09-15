@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { AnimalItemComponent } from './animal-item/animal-item.component';
+import { VacinaComponent } from './vacina/vacina.component';
 
 
 
 @NgModule({
-  declarations: [AnimalItemComponent],
+  declarations: [AnimalItemComponent, VacinaComponent],
   imports: [
     SharedModule
   ],
-  exports: [AnimalItemComponent]
+  exports: [AnimalItemComponent, VacinaComponent]
 })
 export class ComponentsModule { }

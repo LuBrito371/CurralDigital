@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { firestore } from 'firebase';
@@ -14,7 +15,7 @@ constructor(private authService: AuthService, db: AngularFirestore) {
     this.init();
    }
 
-   private init(): void{
+    init(): void{
      this.authService.authState$.subscribe(user => {
        if(user){
          this.setCollection(`/users/${user.uid}/male/`, (ref: firestore.CollectionReference) => ref.orderBy('brinco', 'asc'));
@@ -22,5 +23,12 @@ constructor(private authService: AuthService, db: AngularFirestore) {
        }
        this.setCollection(null);
      });
+
    }
+
+   length(){
+      const count = this.db.collection('male').get().subscribe(values => {
+        return values.size;
+      });
+    }
 }

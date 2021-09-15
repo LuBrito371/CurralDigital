@@ -17,6 +17,7 @@ export class AuthService {
 
   get isAuthenticated(): Observable<boolean>{
     return this.authState$.pipe(map(user => user !== null));
+
   }
 
   authenticate({isSignIn, provider, user}: AuthOptions): Promise<auth.UserCredential>{
