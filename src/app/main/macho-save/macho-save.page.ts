@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable prefer-arrow/prefer-arrow-functions */
 /* eslint-disable @typescript-eslint/member-ordering */
 /* eslint-disable max-len */
@@ -6,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ModalController, NavController } from '@ionic/angular';
 import { take } from 'rxjs/operators';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { OverlayService } from 'src/app/core/services/overlay.service';
 import { MachoService } from 'src/app/main/services/macho.service';
 import { Male } from '../models/macho.model';
@@ -20,13 +22,15 @@ export class MachoSavePage implements OnInit {
   maleForm: FormGroup;
   pageTitle = '...';
   maleId: string = undefined;
+  male: Male;
 
   constructor(
     private fb: FormBuilder,
     private navCtrl: NavController,
     private overlayService: OverlayService,
     private route: ActivatedRoute,
-    private machoService: MachoService
+    private machoService: MachoService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -56,8 +60,8 @@ export class MachoSavePage implements OnInit {
     this.maleForm = this.fb.group({
       brinco: ['', [Validators.required, Validators.minLength(3)]],
       peso: ['', [Validators.required, Validators.min(0)]],
-      nascimento: ['', [Validators.minLength(6)]],
-      apartação: ['', [Validators.minLength(6)]],
+      nascimento: ['', [Validators.required]],
+      apartação: ['', [Validators.required]],
     });
   }
 
@@ -66,12 +70,19 @@ export class MachoSavePage implements OnInit {
       message: 'Salvando..',
     });
     try {
-      const animal = !this.maleId
-        ? await this.machoService.create(this.maleForm.value)
-        : await this.machoService.update({
+      if(!this.maleId){
+       // const user = this.authService.authState$;
+         this.male = await this.machoService.create(this.maleForm.value);
+         console.log(this.male.id);
+         // this.machoService.setCollection(`/users/${user.}/male/${this.male.id}/vacinas/`);
+      }
+      else{
+        await this.machoService.update({
             id: this.maleId,
             ...this.maleForm.value,
           });
+      }
+
       this.navCtrl.navigateBack('/main/male-list');
     } catch (error) {
       console.log('Erro salvando animal ', error);
@@ -85,4 +96,6 @@ export class MachoSavePage implements OnInit {
   onVacina(maleId): void{
     this.navCtrl.navigateForward(['main', 'edit-male', maleId, 'vacinas']);
   }
+
+
   }

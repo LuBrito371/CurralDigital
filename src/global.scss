@@ -37,4 +37,11 @@ ion-input {
   background-color: transparent;
 }
 
+#fab, #delete {
+  --background: #de4307;
+  ion-icon{
+    color: white;
+  }
+}
+
 

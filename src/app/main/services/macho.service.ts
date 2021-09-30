@@ -24,11 +24,8 @@ constructor(private authService: AuthService, db: AngularFirestore) {
        this.setCollection(null);
      });
 
-   }
-
-   length(){
-      const count = this.db.collection('male').get().subscribe(values => {
-        return values.size;
-      });
     }
+
+
+
 }

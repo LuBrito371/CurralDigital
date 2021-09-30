@@ -35,10 +35,12 @@
     </ion-button>
   </form>
 
-    <ion-list >
-      <app-vacina
-        *ngFor="let vacina of (vacina$ | async)"
-        [vacina]="vacina"
-      ></app-vacina>
+<ion-list *ngIf="(vacina$ | async) as vacinas">
+    <ng-container *ngIf="vacinas.length > 0; else noVacinas">
+      <app-vacina *ngFor="let vacina of vacinas" [vacina]="vacina" ></app-vacina>
+    </ng-container>
+    <ng-template #noVacinas>
+      <ion-item lines="none" class="ion-padding">Registre as vacinas no campo acima</ion-item>
+    </ng-template>
   </ion-list>
 </ion-content>

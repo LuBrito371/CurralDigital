@@ -3,11 +3,11 @@ import { AngularFirestore, AngularFirestoreCollection, QueryFn } from '@angular/
 import { Observable } from 'rxjs';
 
 export abstract class Firestore<T extends {id: string}> {
-  protected collection: AngularFirestoreCollection<T>;
+   collection: AngularFirestoreCollection<T>;
 
   constructor(protected db: AngularFirestore) {}
 
-  protected setCollection(path: string, queryFn?: QueryFn): void {
+  setCollection(path: string, queryFn?: QueryFn): void {
     this.collection = path ? this.db.collection(path, queryFn) : null;
   }
 

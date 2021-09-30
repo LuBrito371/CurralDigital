@@ -8,31 +8,44 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-
+  <ion-item *ngIf="user" >
+    <p >{{user.displayName}}</p>
+    <p slot="end">{{date}}</p>
+  </ion-item>
   <ion-grid fixed>
     <ion-row>
       <ion-col size="6">
-        <ion-card>
+        <ion-card routerLink="/main/male-list"id="gender">
           <ion-card-content>Você possui
              <h1 ></h1>
              machos
 
-             <p routerLink="/main/male-list">Confira a lista</p>
+             <p >Confira a lista</p>
           </ion-card-content>
         </ion-card>
 
       </ion-col>
       <ion-col size="6">
 
-        <ion-card>
+        <ion-card routerLink="/main/female-list"id="gender">
           <ion-card-content>Você possui <h1>40</h1> fêmeas
-          <p routerLink="/main/female-list">Confira a lista</p>
+          <p  >Confira a lista</p>
           </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <ion-button routerLink="/main/create-female">Nova Fêmea</ion-button>
-  <ion-button routerLink="/main/create-male">Novo Macho</ion-button>
+  <ion-card id="numbers">
+    <ion-card-content>Bezerros</ion-card-content>
+  </ion-card>
+  <ion-card id="numbers">
+    <ion-card-content>Bezerros em recria</ion-card-content>
+  </ion-card>
+  <ion-card id="numbers">
+    <ion-card-content>Novilhas</ion-card-content>
+  </ion-card>
+  <ion-card id="numbers">
+    <ion-card-content>Prenhes</ion-card-content>
+  </ion-card>
 </ion-content>

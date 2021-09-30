@@ -33,7 +33,9 @@ export class VacinasPage implements OnInit{
 
   ionViewDidEnter(): void {
 
-    this.vacina$  = this.vacinaService.getAll();
+    this.vacina$ = of([
+      {id: 'sfhsfhs', idAnimal: 'hgss', nome: 'gfhs', data: '2021-04-34'}
+    ]);
   }
 
   createForm(): void {
@@ -49,18 +51,22 @@ export class VacinasPage implements OnInit{
 
       if(maleId){
         this.vacina = this.vacinaForm.value;
-        this.vacina.idAnimal = maleId;
-        this.vacinaService.vacina.idAnimal = this.vacina.idAnimal;
+        this.vacinaService.init(maleId);
         this.vacinaService.create(this.vacina);
         console.log(this.vacina);
       }
+
 
     } catch (error) {
       console.error(error);
     }
   }
 
+
+
   onBack(maleId): void {
     this.navCtrl.navigateBack(['main', 'edit-male', maleId]);
   }
+
+
 }

@@ -49,8 +49,8 @@ export class AnimalsSavePage implements OnInit {
     this.animalForm = this.fb.group({
       brinco: ['',[Validators.required, Validators.minLength(3)]],
       peso: ['', [Validators.required, Validators.min(0)]],
-      nascimento: ['', [Validators.required, Validators.minLength(8)]],
-      apartação: ['', [Validators.required, Validators.minLength(8)]],
+      nascimento: ['', [Validators.required, ]],
+      apartação: ['', [Validators.required, ]],
     });
   }
 
