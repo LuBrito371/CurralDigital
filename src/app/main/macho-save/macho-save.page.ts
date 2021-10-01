@@ -73,7 +73,8 @@ export class MachoSavePage implements OnInit {
       if(!this.maleId){
        // const user = this.authService.authState$;
          this.male = await this.machoService.create(this.maleForm.value);
-         console.log(this.male.id);
+         this.machoService.male = this.male;
+         console.log(this.machoService.male.id);
          // this.machoService.setCollection(`/users/${user.}/male/${this.male.id}/vacinas/`);
       }
       else{

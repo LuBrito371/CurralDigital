@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/member-ordering */
+/* eslint-disable max-len */
 /* eslint-disable arrow-body-style */
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -7,25 +9,27 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { Male } from '../models/macho.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class MachoService extends Firestore<Male>{
-constructor(private authService: AuthService, db: AngularFirestore) {
+export class MachoService extends Firestore<Male> {
+  male: Male;
+
+  constructor(private authService: AuthService, db: AngularFirestore) {
     super(db);
     this.init();
-   }
-
-    init(): void{
-     this.authService.authState$.subscribe(user => {
-       if(user){
-         this.setCollection(`/users/${user.uid}/male/`, (ref: firestore.CollectionReference) => ref.orderBy('brinco', 'asc'));
-         return;
-       }
-       this.setCollection(null);
-     });
-
-    }
+  }
 
 
-
+  init(): void {
+    this.authService.authState$.subscribe((user) => {
+      if (user) {
+        this.setCollection(
+          `/users/${user.uid}/male/`,
+          (ref: firestore.CollectionReference) => ref.orderBy('brinco', 'asc')
+        );
+        return;
+      }
+      this.setCollection(null);
+    });
+  }
 }

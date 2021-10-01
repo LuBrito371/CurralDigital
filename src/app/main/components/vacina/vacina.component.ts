@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DocumentData } from '@angular/fire/firestore';
 import { Vacina } from '../../models/vacina.model';
 
 @Component({

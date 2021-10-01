@@ -30,6 +30,7 @@
       class="submit-btn"
       type="submit"
       (click)="saveVacina()"
+      [disabled]="vacinaForm.invalid"
     >
       Salvar
     </ion-button>
@@ -37,7 +38,7 @@
 
 <ion-list *ngIf="(vacina$ | async) as vacinas">
     <ng-container *ngIf="vacinas.length > 0; else noVacinas">
-      <app-vacina *ngFor="let vacina of vacinas" [vacina]="vacina" ></app-vacina>
+      <app-vacina *ngFor="let vacina of vacinas" [vacina]="vacina" (delete)="onDelete($event)"></app-vacina>
     </ng-container>
     <ng-template #noVacinas>
       <ion-item lines="none" class="ion-padding">Registre as vacinas no campo acima</ion-item>

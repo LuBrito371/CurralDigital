@@ -14,7 +14,7 @@ import { MachoService } from '../services/macho.service';
 })
 export class MainPage implements OnInit {
   user: firebase.User;
-  date: string = new Date().toISOString().substring(0,10);
+  date: string = new Date().toLocaleDateString('pt-BR');
 
   constructor(private machoService: MachoService, private femaleService: AnimalsService, private authService: AuthService) { }
 
@@ -23,6 +23,7 @@ export class MainPage implements OnInit {
 
     this.maleLength();
     this.femaleLength();
+
 
     console.log(this.date);
   }
