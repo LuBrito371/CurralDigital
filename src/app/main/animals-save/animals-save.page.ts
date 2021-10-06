@@ -6,7 +6,6 @@ import { ActivatedRoute } from '@angular/router';
 import { ModalController, NavController } from '@ionic/angular';
 import { take } from 'rxjs/operators';
 import { OverlayService } from 'src/app/core/services/overlay.service';
-import { MontaPartoPage } from '../monta-parto/monta-parto.page';
 import { AnimalsService } from '../services/animals.service';
 import { VacinasPage } from '../vacinas/vacinas.page';
 
@@ -20,84 +19,78 @@ export class AnimalsSavePage implements OnInit {
   pageTitle = '...';
   animalId: string = undefined;
 
-  constructor(private fb: FormBuilder, private navCtrl: NavController, private modalCtrl: ModalController, private overlayService: OverlayService, private route: ActivatedRoute, private animalsService: AnimalsService) { }
+  constructor(
+    private fb: FormBuilder,
+    private navCtrl: NavController,
+    private modalCtrl: ModalController,
+    private overlayService: OverlayService,
+    private route: ActivatedRoute,
+    private animalsService: AnimalsService
+  ) {}
 
   ngOnInit(): void {
     this.createForm();
     this.init();
   }
-   init(): void{
-     const animalId = this.route.snapshot.paramMap.get('id');
-     if(!animalId){
+  init(): void {
+    const animalId = this.route.snapshot.paramMap.get('id');
+    if (!animalId) {
       this.pageTitle = 'Novo Animal';
       return;
-     }
-     this.animalId = animalId;
-     this.pageTitle = 'Editar Dados';
-     this.animalsService
+    }
+    this.animalId = animalId;
+    this.pageTitle = 'Editar Dados';
+    this.animalsService
       .get(animalId)
       .pipe(take(1))
-      .subscribe(({ brinco, peso, nascimento, apartação})=>{
+      .subscribe(({ brinco, peso, nascimento, apartação }) => {
         this.animalForm.get('brinco').setValue(brinco);
         this.animalForm.get('peso').setValue(peso);
         this.animalForm.get('nascimento').setValue(nascimento);
         this.animalForm.get('apartação').setValue(apartação);
       });
-   }
+  }
 
-  private createForm(): void{
+  private createForm(): void {
     this.animalForm = this.fb.group({
-      brinco: ['',[Validators.required, Validators.minLength(3)]],
+      brinco: ['', [Validators.required, Validators.minLength(3)]],
       peso: ['', [Validators.required, Validators.min(0)]],
-      nascimento: ['', [Validators.required, ]],
-      apartação: ['', [Validators.required, ]],
+      nascimento: ['', [Validators.required]],
+      apartação: ['', [Validators.required]],
     });
   }
 
-  async onSubmit(): Promise<void>{
+  async onSubmit(): Promise<void> {
     const loading = await this.overlayService.loading({
-      message: 'Salvando..'
+      message: 'Salvando..',
     });
     try {
       const animal = !this.animalId
-      ? await this.animalsService.create(this.animalForm.value)
-      : await this.animalsService.update({
-        id: this.animalId,
-        ...this.animalForm.value
-      });
+        ? await this.animalsService.create(this.animalForm.value)
+        : await this.animalsService.update({
+            id: this.animalId,
+            ...this.animalForm.value,
+          });
       this.navCtrl.navigateBack('/main/female-list');
     } catch (error) {
       console.log('Erro salvando animal ', error);
       await this.overlayService.toast({
-        message: error.message
+        message: error.message,
       });
-    } finally{
+    } finally {
       loading.dismiss();
     }
   }
 
+  onVacina(animalId): void{
+    this.navCtrl.navigateForward(['main', 'edit-female', animalId, 'vacinas-femea']);
+  }
 
-  async saveVacinas(){
-    const modal = await this.modalCtrl.create({
-      component: VacinasPage
-      });
+  onMontas(animalId): void{
+    this.navCtrl.navigateForward(['main', 'edit-female', animalId, 'monta']);
+  }
 
-      await modal.present();
-
-      const data = await modal.onDidDismiss();
-      console.log(data);
-
-    }
-
-    async montasAndPartos(){
-    const modal = await this.modalCtrl.create({
-      component: MontaPartoPage
-      });
-
-      await modal.present();
-
-      const data = await modal.onDidDismiss();
-      console.log(data);
-
-    }
+  onPartos(animalId): void{
+    this.navCtrl.navigateForward(['main', 'edit-female', animalId, 'parto']);
+  }
 }

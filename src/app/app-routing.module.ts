@@ -22,7 +22,7 @@ const routes: Routes = [
     path: 'main',
     loadChildren: () => import('src/app/main/main.module').then((m) => m.MainModule),
     canLoad: [AuthGuard]
-  },
+  }
 ];
 
 @NgModule({

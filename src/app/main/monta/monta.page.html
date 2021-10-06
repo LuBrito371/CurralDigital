@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start"></ion-back-button>
+    <ion-title>Montas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="montaForm">
+    <ion-list>
+      <ion-item>
+        <ion-input
+          placeholder="Ordem"
+          type="number"
+          formControlName="ordem"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          placeholder="Data"
+          type="date"
+          formControlName="data"
+          #data
+        ></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-button
+      class="submit-btn"
+      type="submit"
+      (click)="saveMonta()"
+      [disabled]="montaForm.invalid"
+    >
+      Salvar
+    </ion-button>
+  </form>
+
+  <ion-list *ngIf="(monta$ | async) as montas">
+    <ng-container *ngIf="montas.length > 0; else noMontas">
+      <app-montas
+        *ngFor="let monta of montas"
+        [monta]="monta"
+        (delete)="onDelete($event)"
+      ></app-montas>
+    </ng-container>
+    <ng-template #noMontas>
+      <ion-item lines="none" class="ion-padding"
+        >Insira qual a ordem da monta/inseminação artificial e depois a data em
+        que foi realizada</ion-item
+      >
+    </ng-template>
+  </ion-list>
+</ion-content>

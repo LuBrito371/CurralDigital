@@ -16,17 +16,39 @@ const routes: Routes = [
       },
       {
         path: 'edit-female/:id',
-        loadChildren: () =>
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
           import('./animals-save/animals-save.module').then(
             (m) => m.AnimalsSavePageModule
           ),
+          },
+          {
+            path: 'vacinas-femea',
+            loadChildren: () =>
+            import('./vacinas-femea/vacinas-femea.module').then(
+              (m) => m.VacinasFemeaPageModule
+              ),
+            },
+            {
+              path: 'monta',
+              loadChildren: () => import('./monta/monta.module').then( m => m.MontaPageModule)
+            },
+            {
+              path: 'parto',
+              loadChildren: () => import('./parto/parto.module').then( m => m.PartoPageModule)
+            },
+        ],
+
       },
       {
         path: 'female-list',
         loadChildren: () =>
-          import('./animal-list/animal-list.module').then(
-            (m) => m.AnimalListPageModule
-          ),
+              import('./animal-list/animal-list.module').then(
+                (m) => m.AnimalListPageModule
+              ),
+
       },
       {
         path: 'male-list',
@@ -60,13 +82,6 @@ const routes: Routes = [
               ),
           },
         ],
-      },
-      {
-        path: 'monta-parto',
-        loadChildren: () =>
-          import('./monta-parto/monta-parto.module').then(
-            (m) => m.MontaPartoPageModule
-          ),
       },
       {
         path: '',

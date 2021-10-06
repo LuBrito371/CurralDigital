@@ -1,0 +1,21 @@
+<ion-item-sliding #sliding>
+  <ion-item >
+    <p>Monta Nº{{ monta.ordem }}</p>
+    <p slot="end">{{monta.data}}</p>
+  </ion-item>
+
+  <ion-item-options side="start">
+    <ion-item-option
+    id="delete"
+      (click)="delete.emit(monta); sliding.close()"
+    >
+      <ion-icon
+      id="delete"
+        slot="icon-only"
+        name="trash"
+      ></ion-icon>
+    </ion-item-option>
+
+  </ion-item-options>
+</ion-item-sliding>
+

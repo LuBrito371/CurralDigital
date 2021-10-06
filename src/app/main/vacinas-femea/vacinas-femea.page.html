@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start" ></ion-back-button>
+    <ion-title>Vacinas</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="vacinaForm">
+    <ion-list>
+      <ion-item>
+        <ion-input
+          placeholder="Nome"
+          type="text"
+          formControlName="nome"
+          #nome
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          placeholder="Data"
+          type="date"
+          formControlName="data"
+          #data
+        ></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-button
+      class="submit-btn"
+      type="submit"
+      (click)="saveVacina()"
+      [disabled]="vacinaForm.invalid"
+    >
+      Salvar
+    </ion-button>
+  </form>
+
+<ion-list *ngIf="(vacina$ | async) as vacinas">
+    <ng-container *ngIf="vacinas.length > 0; else noVacinas">
+      <app-vacina *ngFor="let vacina of vacinas" [vacina]="vacina" (delete)="onDelete($event)"></app-vacina>
+    </ng-container>
+    <ng-template #noVacinas>
+      <ion-item lines="none" class="ion-padding">Registre as vacinas no campo acima</ion-item>
+    </ng-template>
+  </ion-list>
+</ion-content>
+

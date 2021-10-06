@@ -18,9 +18,6 @@ export class VacinaService extends Firestore<Vacina> {
    //maleId = this.db.collection('male').ref.doc().id;
 
   constructor(
-    private authService: AuthService,
-    private machoService: MachoService,
-    private route: ActivatedRoute,
     db: AngularFirestore,
 
   ) {
