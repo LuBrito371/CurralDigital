@@ -61,7 +61,7 @@ export class MachoSavePage implements OnInit {
       brinco: ['', [Validators.required, Validators.minLength(3)]],
       peso: ['', [Validators.required, Validators.min(0)]],
       nascimento: ['', [Validators.required]],
-      apartação: ['', [Validators.required]],
+      apartação: [''],
     });
   }
 

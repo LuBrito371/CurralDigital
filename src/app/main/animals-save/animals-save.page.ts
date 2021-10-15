@@ -56,7 +56,7 @@ export class AnimalsSavePage implements OnInit {
       brinco: ['', [Validators.required, Validators.minLength(3)]],
       peso: ['', [Validators.required, Validators.min(0)]],
       nascimento: ['', [Validators.required]],
-      apartação: ['', [Validators.required]],
+      apartação: [''],
     });
   }
 
@@ -71,6 +71,7 @@ export class AnimalsSavePage implements OnInit {
             id: this.animalId,
             ...this.animalForm.value,
           });
+      console.log(animal);
       this.navCtrl.navigateBack('/main/female-list');
     } catch (error) {
       console.log('Erro salvando animal ', error);
