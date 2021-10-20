@@ -71,10 +71,8 @@ export class LoginPage implements OnInit {
         user: this.authForm.value,
         provider
       });
-      console.log(credentials.user.uid);
       this.navCtrl.navigateForward(this.route.snapshot.queryParamMap.get('redirect') || '/main');
     } catch (error) {
-      console.log('Erro de Autenticação: ', error);
       await this.overlayService.toast({
         message: 'Email ou senha inválidos'
       });

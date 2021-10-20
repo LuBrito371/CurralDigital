@@ -1,12 +1,9 @@
 /* eslint-disable @typescript-eslint/prefer-for-of */
 /* eslint-disable max-len */
 import { Component, OnInit } from '@angular/core';
-import { Routes } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { AnimalsService } from '../services/animals.service';
 import { MachoService } from '../services/macho.service';
-import { MontaService } from '../services/monta.service';
-import { PartoService } from '../services/parto.service';
 
 @Component({
   selector: 'app-main',
@@ -19,29 +16,25 @@ export class MainPage implements OnInit {
   males: number;
   females: number;
   mamando: number;
-  desmamando: number;
+  desmamado: number;
   novilhas: number;
   prenhes: number;
 
   constructor(
     private machoService: MachoService,
     private femaleService: AnimalsService,
-    private montaService: MontaService,
-    private partoSerivce: PartoService,
     private authService: AuthService
   ) {}
 
   ngOnInit() {
     this.authService.authState$.subscribe((user) => (this.user = user));
-
-    console.log(this.date);
   }
 
   ionViewDidEnter() {
     this.maleLength();
     this.femaleLength();
     this.bezerrosLength();
-    this.length();
+    this.montaLength();
   }
 
   maleLength() {
@@ -77,25 +70,44 @@ export class MainPage implements OnInit {
         if (n[i].apartação === '') {
           contFM++;
         }
-        if(n[i].apartação !== '') {
+        if (n[i].apartação !== '') {
           contFD++;
         }
       }
 
       this.mamando = contFM + contMM;
-      this.desmamando = contFD + contMD;
+      this.desmamado = contMD;
+      this.novilhas = contFD;
     });
   }
 
-  length(){
+  montaLength() {
+    let cont = 0;
     let id;
-    this.femaleService.collection.ref.limit(1).get().then(snap=>{
-      snap.forEach(doc => {
-       id = doc.id;
-       this.femaleService.collection.doc(id).collection('montas').valueChanges().subscribe(x =>{
-         console.log('novilhas: ',x);
-       });
+    this.femaleService.collection.ref.get().then((snap) => {
+      snap.forEach((doc) => {
+        id = doc.id;
+        this.femaleService.collection
+          .doc(id)
+          .collection('montas')
+          .valueChanges()
+          .subscribe((y) => {
+            this.femaleService.collection
+              .doc(id)
+              .collection('partos')
+              .valueChanges()
+              .subscribe((z) => {
+                if (y.length !== 0) {
+                  this.novilhas--;
+                  if (y.length > z.length) {
+                    cont++;
+                  }
+                }
+                this.prenhes = cont;
+              });
+          });
       });
     });
+
   }
 }
