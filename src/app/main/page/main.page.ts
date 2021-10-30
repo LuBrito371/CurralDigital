@@ -16,9 +16,13 @@ export class MainPage implements OnInit {
   males: number;
   females: number;
   mamando: number;
+  mamandoF: number;
   desmamado: number;
   novilhas: number;
   prenhes: number;
+  concepcao = 0;
+  desmame = 0;
+  prenhez = 0;
 
   constructor(
     private machoService: MachoService,
@@ -35,6 +39,7 @@ export class MainPage implements OnInit {
     this.femaleLength();
     this.bezerrosLength();
     this.montaLength();
+    this.taxaDesmame();
   }
 
   maleLength() {
@@ -76,6 +81,7 @@ export class MainPage implements OnInit {
       }
 
       this.mamando = contFM + contMM;
+      this.mamandoF = contFM;
       this.desmamado = contMD;
       this.novilhas = contFD;
     });
@@ -83,23 +89,26 @@ export class MainPage implements OnInit {
 
   montaLength() {
     let cont = 0;
-    let id;
-    this.femaleService.collection.ref.get().then((snap) => {
+    /*this.femaleService.collection.ref.get().then((snap) => {
       snap.forEach((doc) => {
-        id = doc.id;
+
+    });*/
+    this.femaleService.collection.ref.get().then((docs) => {
+      docs.forEach((doc) => {
+        const id = doc.id;
         this.femaleService.collection
           .doc(id)
           .collection('montas')
           .valueChanges()
-          .subscribe((y) => {
+          .subscribe((x) => {
             this.femaleService.collection
               .doc(id)
               .collection('partos')
               .valueChanges()
-              .subscribe((z) => {
-                if (y.length !== 0) {
+              .subscribe((y) => {
+                if (x.length > 0) {
                   this.novilhas--;
-                  if (y.length > z.length) {
+                  if (x.length > y.length) {
                     cont++;
                   }
                 }
@@ -108,6 +117,13 @@ export class MainPage implements OnInit {
           });
       });
     });
+  }
+
+  taxaDesmame(){
+    const cobertura = this.females-(this.prenhes+this.mamandoF);
+    const taxa = this.desmamado*100/cobertura;
+    console.log('cobertura: ',this.females);
+    this.desmame = taxa;
 
   }
 }

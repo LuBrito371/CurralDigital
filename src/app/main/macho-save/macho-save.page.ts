@@ -48,9 +48,8 @@ export class MachoSavePage implements OnInit {
     this.machoService
       .get(maleId)
       .pipe(take(1))
-      .subscribe(({ brinco, peso, nascimento, apartação }) => {
+      .subscribe(({ brinco, pesoAtual, nascimento, apartação }) => {
         this.maleForm.get('brinco').setValue(brinco);
-        this.maleForm.get('peso').setValue(peso);
         this.maleForm.get('nascimento').setValue(nascimento);
         this.maleForm.get('apartação').setValue(apartação);
       });
@@ -59,7 +58,6 @@ export class MachoSavePage implements OnInit {
   private createForm(): void {
     this.maleForm = this.fb.group({
       brinco: ['', [Validators.required, Validators.minLength(3)]],
-      peso: ['', [Validators.required, Validators.min(0)]],
       nascimento: ['', [Validators.required]],
       apartação: [''],
     });
@@ -85,7 +83,6 @@ export class MachoSavePage implements OnInit {
 
       this.navCtrl.navigateBack('/main/male-list');
     } catch (error) {
-      console.log('Erro salvando animal ', error);
       await this.overlayService.toast({
         message: error.message,
       });
@@ -95,6 +92,10 @@ export class MachoSavePage implements OnInit {
   }
   onVacina(maleId): void{
     this.navCtrl.navigateForward(['main', 'edit-male', maleId, 'vacinas']);
+  }
+
+  onPeso(maleId): void{
+    this.navCtrl.navigateForward(['main', 'edit-male', maleId, 'pesagens']);
   }
 
 

@@ -43,9 +43,8 @@ export class AnimalsSavePage implements OnInit {
     this.animalsService
       .get(animalId)
       .pipe(take(1))
-      .subscribe(({ brinco, peso, nascimento, apartação }) => {
+      .subscribe(({ brinco, pesoAtual, nascimento, apartação }) => {
         this.animalForm.get('brinco').setValue(brinco);
-        this.animalForm.get('peso').setValue(peso);
         this.animalForm.get('nascimento').setValue(nascimento);
         this.animalForm.get('apartação').setValue(apartação);
       });
@@ -54,7 +53,6 @@ export class AnimalsSavePage implements OnInit {
   private createForm(): void {
     this.animalForm = this.fb.group({
       brinco: ['', [Validators.required, Validators.minLength(3)]],
-      peso: ['', [Validators.required, Validators.min(0)]],
       nascimento: ['', [Validators.required]],
       apartação: [''],
     });
@@ -71,10 +69,8 @@ export class AnimalsSavePage implements OnInit {
             id: this.animalId,
             ...this.animalForm.value,
           });
-      console.log(animal);
       this.navCtrl.navigateBack('/main/female-list');
     } catch (error) {
-      console.log('Erro salvando animal ', error);
       await this.overlayService.toast({
         message: error.message,
       });
@@ -93,5 +89,9 @@ export class AnimalsSavePage implements OnInit {
 
   onPartos(animalId): void{
     this.navCtrl.navigateForward(['main', 'edit-female', animalId, 'parto']);
+  }
+
+  onPeso(animalId): void{
+    this.navCtrl.navigateForward(['main', 'edit-female', animalId, 'pesagens']);
   }
 }

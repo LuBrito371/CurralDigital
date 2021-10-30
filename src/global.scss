@@ -33,9 +33,15 @@ ion-header,ion-content {
   --ion-background-color: #f6d04d;
 }
 
-ion-button{
+#submit{
 
---ion-background-color: #8bc24c;
+--background: #8bc24c;
+  color: white;
+}
+
+#wing{
+
+--background: #de4307;
   color: white;
 }
 

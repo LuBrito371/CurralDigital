@@ -1,20 +1,18 @@
 <ion-header>
   <ion-toolbar>
     <ion-back-button slot="start" ></ion-back-button>
-    <ion-title>Vacinas</ion-title>
-
+    <ion-title>Histórico de pesagens</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form [formGroup]="vacinaForm">
+  <form [formGroup]="pesoForm">
     <ion-list>
       <ion-item>
         <ion-input
-          placeholder="Nome"
-          type="text"
-          formControlName="nome"
-          #nome
+          placeholder="Peso"
+          type="number"
+          formControlName="peso"
         ></ion-input>
       </ion-item>
       <ion-item>
@@ -29,8 +27,8 @@
     <ion-button
       class="submit-btn"
       type="submit"
-      (click)="saveVacina()"
-      [disabled]="vacinaForm.invalid"
+      (click)="savePeso()"
+      [disabled]="pesoForm.invalid"
       id="submit"
       expand="full"
     >
@@ -38,12 +36,14 @@
     </ion-button>
   </form>
 
-<ion-list *ngIf="(vacina$ | async) as vacinas">
-    <ng-container *ngIf="vacinas.length > 0; else noVacinas">
-      <app-vacina *ngFor="let vacina of vacinas" [vacina]="vacina" (delete)="onDelete($event)"></app-vacina>
+  <ion-list *ngIf="(peso$ | async) as pesos">
+    <ng-container *ngIf="pesos.length > 0; else noPesos">
+      <app-pesos *ngFor="let peso of pesos" [peso]="peso" (delete)="onDelete($event)"></app-pesos>
     </ng-container>
-    <ng-template #noVacinas>
-      <ion-item lines="none" class="ion-padding">Registre as vacinas no campo acima</ion-item>
+    <ng-template #noPesos>
+      <ion-item lines="none" class="ion-padding"
+        >Insira o peso registrado e depois a data da pesagem.</ion-item
+      >
     </ng-template>
   </ion-list>
 </ion-content>

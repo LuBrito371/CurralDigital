@@ -20,35 +20,40 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-          import('./animals-save/animals-save.module').then(
-            (m) => m.AnimalsSavePageModule
-          ),
+              import('./animals-save/animals-save.module').then(
+                (m) => m.AnimalsSavePageModule
+              ),
           },
           {
             path: 'vacinas-femea',
             loadChildren: () =>
-            import('./vacinas-femea/vacinas-femea.module').then(
-              (m) => m.VacinasFemeaPageModule
+              import('./vacinas-femea/vacinas-femea.module').then(
+                (m) => m.VacinasFemeaPageModule
               ),
-            },
-            {
-              path: 'monta',
-              loadChildren: () => import('./monta/monta.module').then( m => m.MontaPageModule)
-            },
-            {
-              path: 'parto',
-              loadChildren: () => import('./parto/parto.module').then( m => m.PartoPageModule)
-            },
+          },
+          {
+            path: 'monta',
+            loadChildren: () =>
+              import('./monta/monta.module').then((m) => m.MontaPageModule),
+          },
+          {
+            path: 'parto',
+            loadChildren: () =>
+              import('./parto/parto.module').then((m) => m.PartoPageModule),
+          },
+          {
+            path: 'pesagens',
+            loadChildren: () =>
+              import('./peso/peso.module').then((m) => m.PesoPageModule),
+          },
         ],
-
       },
       {
         path: 'female-list',
         loadChildren: () =>
-              import('./animal-list/animal-list.module').then(
-                (m) => m.AnimalListPageModule
-              ),
-
+          import('./animal-list/animal-list.module').then(
+            (m) => m.AnimalListPageModule
+          ),
       },
       {
         path: 'male-list',
@@ -80,6 +85,11 @@ const routes: Routes = [
               import('./vacinas/vacinas.module').then(
                 (m) => m.VacinasPageModule
               ),
+          },
+          {
+            path: 'pesagens',
+            loadChildren: () =>
+              import('./peso/peso.module').then((m) => m.PesoPageModule),
           },
         ],
       },

@@ -1,7 +1,7 @@
 export interface Animal{
   id: string;
   brinco: string;
-  peso: number;
+  pesoAtual: number;
   nascimento: string;
   apartação: string;
 }

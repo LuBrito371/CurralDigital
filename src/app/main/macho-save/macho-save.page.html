@@ -21,19 +21,10 @@
         formControlName="brinco"
       ></ion-input>
     </ion-item>
-    <ion-item >
-      <ion-icon name="barbell" slot="start"></ion-icon>
-      <ion-label>Peso:</ion-label>
-      <ion-input
-        type="number"
-        autofocus="true"
-        inputmode="number"
-        formControlName="peso"
-      ></ion-input>
-    </ion-item>
+
     <ion-item>
       <ion-icon name="calendar" slot="start"></ion-icon>
-      <ion-label>Data de Nascimento:</ion-label>
+      <ion-label>Nascimento:</ion-label>
       <ion-input
         type="date"
         autofocus="true"
@@ -43,7 +34,7 @@
     </ion-item>
     <ion-item>
       <ion-icon name="calendar" slot="start"></ion-icon>
-      <ion-label>Data de Apartação:</ion-label>
+      <ion-label>Apartação:</ion-label>
       <ion-input
         type="date"
         autofocus="true"
@@ -51,9 +42,20 @@
         slot="end"
       ></ion-input>
     </ion-item>
-    <ion-button (click)="onVacina(maleId)">Vacinas</ion-button>
+    
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="6">
+          <ion-button id="wing" (click)="onVacina(maleId)">Vacinas</ion-button>
 
-    <ion-button type="submit" [disabled]="maleForm.invalid" expand="full" fill="clear">Salvar</ion-button
+        </ion-col>
+        <ion-col size="6">
+          <ion-button id="wing" (click)="onPeso(maleId)">Pesagens</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-button id="submit" type="submit" [disabled]="maleForm.invalid" expand="full" >Salvar</ion-button
     >
   </form>
 </ion-content>
