@@ -9,8 +9,8 @@ import { Vacina } from '../../models/vacina.model';
 })
 export class VacinaComponent  {
 
-  @Input() vacina: Vacina;
-  @Output() update = new EventEmitter<Vacina>();
-  @Output() delete = new EventEmitter<Vacina>();
+  @Input() vacina: DocumentData;
+  @Output() update = new EventEmitter<DocumentData>();
+  @Output() delete = new EventEmitter<DocumentData>();
 
 }

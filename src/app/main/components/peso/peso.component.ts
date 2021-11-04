@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { DocumentData } from '@angular/fire/firestore';
 import { Pesagem } from '../../models/pesagem.model';
 
 @Component({
@@ -8,8 +9,8 @@ import { Pesagem } from '../../models/pesagem.model';
 })
 export class PesoComponent  {
 
-  @Input() peso: Pesagem;
-  @Output() delete = new EventEmitter<Pesagem>();
-  @Output() update = new EventEmitter<Pesagem>();
+  @Input() peso: DocumentData;
+  @Output() delete = new EventEmitter<DocumentData>();
+  @Output() update = new EventEmitter<DocumentData>();
 
 }

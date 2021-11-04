@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { AuthService } from '../core/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +9,16 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(private authService: AuthService, private navCtrl: NavController) {}
+
+  button(){
+    this.authService.authState$.subscribe(auth => {
+      if(auth){
+        this.navCtrl.navigateForward(['/main']);
+      }else{
+        this.navCtrl.navigateForward(['/login']);
+      }
+    });
+  }
 
 }

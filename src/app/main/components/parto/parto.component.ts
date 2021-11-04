@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DocumentData } from '@angular/fire/firestore';
 import { Monta } from '../../models/monta.model';
 
 @Component({
@@ -7,9 +8,9 @@ import { Monta } from '../../models/monta.model';
   styleUrls: ['./parto.component.scss'],
 })
 export class PartoComponent  {
-  @Input() parto: Monta;
-  @Output() update = new EventEmitter<Monta>();
-  @Output() delete = new EventEmitter<Monta>();
+  @Input() parto: DocumentData;
+  @Output() update = new EventEmitter<DocumentData>();
+  @Output() delete = new EventEmitter<DocumentData>();
 
 
 }

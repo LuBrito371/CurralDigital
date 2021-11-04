@@ -43,7 +43,7 @@ export class AnimalsSavePage implements OnInit {
     this.animalsService
       .get(animalId)
       .pipe(take(1))
-      .subscribe(({ brinco, pesoAtual, nascimento, apartação }) => {
+      .subscribe(({ brinco, nascimento, apartação }) => {
         this.animalForm.get('brinco').setValue(brinco);
         this.animalForm.get('nascimento').setValue(nascimento);
         this.animalForm.get('apartação').setValue(apartação);

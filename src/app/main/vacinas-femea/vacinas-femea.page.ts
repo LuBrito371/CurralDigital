@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ModalController, NavController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { OverlayService } from 'src/app/core/services/overlay.service';
+import { Animal } from '../models/animal.model';
 import { Vacina } from '../models/vacina.model';
 import { AnimalsService } from '../services/animals.service';
 import { MachoService } from '../services/macho.service';

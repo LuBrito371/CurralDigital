@@ -40,6 +40,8 @@ export class MainPage implements OnInit {
     this.bezerrosLength();
     this.montaLength();
     this.taxaDesmame();
+    this.taxaConcepcao();
+    this.taxaPrenhez();
   }
 
   maleLength() {
@@ -119,11 +121,33 @@ export class MainPage implements OnInit {
     });
   }
 
-  taxaDesmame(){
-    const cobertura = this.females-(this.prenhes+this.mamandoF);
-    const taxa = this.desmamado*100/cobertura;
-    console.log('cobertura: ',this.females);
-    this.desmame = taxa;
+  taxaDesmame() {
+    let taxa;
+    const desmame = this.desmamado+this.novilhas;
+    if (desmame > 0) {
+      const decimal = Math.round(desmame * 100) / (this.mamando + desmame);
+      taxa = decimal.toFixed(1);
+      this.desmame = taxa;
+    }
+  }
 
+  taxaConcepcao() {
+    let taxa ;
+    if (this.females > 0) {
+      const decimal = Math.round(this.prenhes * 100) / this.females;
+      taxa = decimal.toFixed(1);
+      this.concepcao = taxa;
+    }
+  }
+
+  taxaPrenhez() {
+    let taxa ;
+    const cobertura = this.females -  this.mamandoF;
+    if (cobertura > 0) {
+      const decimal = Math.round(this.prenhes * 100) / cobertura;
+      taxa = decimal.toFixed(1);
+
+      this.prenhez = taxa;
+    }
   }
 }

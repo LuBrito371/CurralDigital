@@ -9,15 +9,16 @@
   <form [formGroup]="montaForm">
     <ion-list>
       <ion-item>
+        <ion-label>Ordem: </ion-label>
         <ion-input
-          placeholder="Ordem"
           type="number"
           formControlName="ordem"
         ></ion-input>
       </ion-item>
       <ion-item>
+        <ion-label>Data: </ion-label>
         <ion-input
-          placeholder="Data"
+
           type="date"
           formControlName="data"
           #data

@@ -9,15 +9,15 @@
   <form [formGroup]="pesoForm">
     <ion-list>
       <ion-item>
+        <ion-label>Peso: </ion-label>
         <ion-input
-          placeholder="Peso"
           type="number"
           formControlName="peso"
         ></ion-input>
       </ion-item>
       <ion-item>
+        <ion-label>Data: </ion-label>
         <ion-input
-          placeholder="Data"
           type="date"
           formControlName="data"
           #data
@@ -42,7 +42,7 @@
     </ng-container>
     <ng-template #noPesos>
       <ion-item lines="none" class="ion-padding"
-        >Insira o peso registrado e depois a data da pesagem.</ion-item
+        >Insira o peso em arrobas registrado e depois a data da pesagem.</ion-item
       >
     </ng-template>
   </ion-list>
