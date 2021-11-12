@@ -18,8 +18,9 @@ export class MainPage implements OnInit {
   mamando: number;
   mamandoF: number;
   desmamado: number;
-  novilhas: number;
+  desmamadoF: number;
   prenhes: number;
+  cobertura: number;
   concepcao = 0;
   desmame = 0;
   prenhez = 0;
@@ -32,16 +33,22 @@ export class MainPage implements OnInit {
 
   ngOnInit() {
     this.authService.authState$.subscribe((user) => (this.user = user));
+
+
   }
 
+
   ionViewDidEnter() {
+
     this.maleLength();
     this.femaleLength();
     this.bezerrosLength();
     this.montaLength();
+    this.coberturaLength();
     this.taxaDesmame();
     this.taxaConcepcao();
     this.taxaPrenhez();
+
   }
 
   maleLength() {
@@ -54,6 +61,15 @@ export class MainPage implements OnInit {
     this.femaleService.getAll().subscribe((values) => {
       this.females = values.length;
     });
+  }
+
+  coberturaLength(){
+
+    if(this.females !== 0){
+      this.cobertura = this.females-(this.prenhes+this.mamandoF);
+    }else{
+      this.cobertura = 0;
+    }
   }
 
   bezerrosLength() {
@@ -85,16 +101,16 @@ export class MainPage implements OnInit {
       this.mamando = contFM + contMM;
       this.mamandoF = contFM;
       this.desmamado = contMD;
-      this.novilhas = contFD;
+      this.desmamadoF = contFD;
+
+
     });
   }
 
+
+
   montaLength() {
     let cont = 0;
-    /*this.femaleService.collection.ref.get().then((snap) => {
-      snap.forEach((doc) => {
-
-    });*/
     this.femaleService.collection.ref.get().then((docs) => {
       docs.forEach((doc) => {
         const id = doc.id;
@@ -109,7 +125,6 @@ export class MainPage implements OnInit {
               .valueChanges()
               .subscribe((y) => {
                 if (x.length > 0) {
-                  this.novilhas--;
                   if (x.length > y.length) {
                     cont++;
                   }
@@ -119,11 +134,14 @@ export class MainPage implements OnInit {
           });
       });
     });
+
   }
+
+
 
   taxaDesmame() {
     let taxa;
-    const desmame = this.desmamado+this.novilhas;
+    const desmame = this.desmamado+this.cobertura;
     if (desmame > 0) {
       const decimal = Math.round(desmame * 100) / (this.mamando + desmame);
       taxa = decimal.toFixed(1);
@@ -142,9 +160,8 @@ export class MainPage implements OnInit {
 
   taxaPrenhez() {
     let taxa ;
-    const cobertura = this.females -  this.mamandoF;
-    if (cobertura > 0) {
-      const decimal = Math.round(this.prenhes * 100) / cobertura;
+       if (this.cobertura > 0) {
+      const decimal = Math.round(this.prenhes * 100) / this.cobertura;
       taxa = decimal.toFixed(1);
 
       this.prenhez = taxa;

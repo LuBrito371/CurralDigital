@@ -55,7 +55,11 @@ export class PesoPage implements OnInit {
       if(this.maleId){
 
         this.peso = this.pesoForm.value;
-        this.peso.data = new Date().toLocaleDateString('pt-BR');
+        const data = new Date(this.peso.data);
+        const format = ((data.getDate()+1 )) + '/' + ((data.getMonth() +1)) + '/' + data.getFullYear();
+        console.log(format);
+        this.peso.data = format;
+
 
       this.pesoService.collection = this.machoService.collection.doc(this.maleId).collection('peso');
        this.pesoService.create(this.peso);

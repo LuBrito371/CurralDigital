@@ -53,6 +53,10 @@ export class PartoPage implements OnInit {
 
       if(this.femaleId){
         this.parto = this.partoForm.value;
+        const data = new Date(this.parto.data);
+        const format = ((data.getDate()+1 )) + '/' + ((data.getMonth() +1)) + '/' + data.getFullYear();
+        console.log(format);
+        this.parto.data = format;
       this.partoService.collection = this.animalsService.collection.doc(this.femaleId).collection('partos');
        this.partoService.create(this.parto);
         console.log(this.parto);

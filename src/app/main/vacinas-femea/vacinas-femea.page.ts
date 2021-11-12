@@ -56,6 +56,10 @@ export class VacinasFemeaPage implements OnInit {
 
       if(this.femaleId){
         this.vacina = this.vacinaForm.value;
+        const data = new Date(this.vacina.data);
+        const format = ((data.getDate()+1 )) + '/' + ((data.getMonth() +1)) + '/' + data.getFullYear();
+        console.log(format);
+        this.vacina.data = format;
       this.vacinaService.collection = this.animalsService.collection.doc(this.femaleId).collection('vacinas');
        this.vacinaService.create(this.vacina);
         console.log(this.vacina);

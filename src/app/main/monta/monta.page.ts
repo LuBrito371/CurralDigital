@@ -53,6 +53,10 @@ export class MontaPage implements OnInit {
 
       if(this.femaleId){
         this.monta = this.montaForm.value;
+        const data = new Date(this.monta.data);
+        const format = ((data.getDate()+1 )) + '/' + ((data.getMonth() +1)) + '/' + data.getFullYear();
+        console.log(format);
+        this.monta.data = format;
       this.montaService.collection = this.animalsService.collection.doc(this.femaleId).collection('montas');
        this.montaService.create(this.monta);
         console.log(this.monta);
