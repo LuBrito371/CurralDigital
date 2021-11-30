@@ -1,18 +1,17 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { AnimalItemComponent } from './animal-item/animal-item.component';
-import { MontaComponent } from './monta/monta.component';
-import { PartoComponent } from './parto/parto.component';
+import { MontaItemComponent } from './monta-item/monta-item.component';
 import { PesoComponent } from './peso/peso.component';
 import { VacinaComponent } from './vacina/vacina.component';
 
 
 
 @NgModule({
-  declarations: [AnimalItemComponent, VacinaComponent, MontaComponent, PartoComponent, PesoComponent],
+  declarations: [AnimalItemComponent, VacinaComponent, PesoComponent, MontaItemComponent],
   imports: [
     SharedModule
   ],
-  exports: [AnimalItemComponent, VacinaComponent, MontaComponent, PartoComponent, PesoComponent]
+  exports: [AnimalItemComponent, VacinaComponent, PesoComponent, MontaItemComponent]
 })
 export class ComponentsModule { }

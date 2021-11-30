@@ -1,9 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <app-menu-toggle
-      slot="start"
-      menu="main-menu"
-    ></app-menu-toggle>
+    <app-menu-toggle slot="start" menu="main-menu"></app-menu-toggle>
   </ion-toolbar>
 </ion-header>
 
@@ -15,10 +12,7 @@
   <ion-grid fixed>
     <ion-row>
       <ion-col size="6">
-        <ion-card
-          routerLink="/main/male-list"
-          id="gender"
-        >
+        <ion-card routerLink="/main/male-list" id="gender">
           <ion-card-content>
             Você possui
             <h1>{{males}}</h1>
@@ -28,10 +22,7 @@
         </ion-card>
       </ion-col>
       <ion-col size="6">
-        <ion-card
-          routerLink="/main/female-list"
-          id="gender"
-        >
+        <ion-card routerLink="/main/female-list" id="gender">
           <ion-card-content>
             Você possui
             <h1>{{females}}</h1>
@@ -78,7 +69,7 @@
       <ion-col>
         <ion-card id="numbers">
           <ion-card-content>
-            <ion-label>Bezerros mamando</ion-label>
+            <ion-label>Bezerros machos mamando</ion-label>
             <p>{{mamando}}</p>
           </ion-card-content>
         </ion-card>
@@ -86,9 +77,8 @@
       <ion-col>
         <ion-card id="numbers">
           <ion-card-content>
-            <ion-label>Machos desmamados</ion-label>
-            <p>{{ desmamado }}</p>
-
+            <ion-label>Bezerros fêmeas mamando</ion-label>
+            <p>{{mamandoF}}</p>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -97,12 +87,29 @@
       <ion-col>
         <ion-card id="numbers">
           <ion-card-content>
+            <ion-label>Machos desmamados</ion-label>
+            <p>{{ desmamado }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card id="numbers">
+          <ion-card-content>
             <ion-label>Fêmeas desmamadas</ion-label>
             <p>{{desmamadoF}}</p>
           </ion-card-content>
         </ion-card>
       </ion-col>
-
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card id="numbers">
+          <ion-card-content>
+            <ion-label>Vacas aptas</ion-label>
+            <p>{{aptas}}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
       <ion-col>
         <ion-card id="numbers">
           <ion-card-content>
@@ -122,6 +129,5 @@
         </ion-card>
       </ion-col>
     </ion-row>
-    <ion-row></ion-row>
   </ion-grid>
 </ion-content>

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { PartoPage } from './parto.page';
+import { MontaItemComponent } from './monta-item.component';
 
-describe('PartoPage', () => {
-  let component: PartoPage;
-  let fixture: ComponentFixture<PartoPage>;
+describe('MontaItemComponent', () => {
+  let component: MontaItemComponent;
+  let fixture: ComponentFixture<MontaItemComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ PartoPage ],
+      declarations: [ MontaItemComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PartoPage);
+    fixture = TestBed.createComponent(MontaItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

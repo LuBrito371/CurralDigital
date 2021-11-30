@@ -69,10 +69,8 @@ export class MachoSavePage implements OnInit {
     });
     try {
       if(!this.maleId){
-       // const user = this.authService.authState$;
          this.male = await this.machoService.create(this.maleForm.value);
          this.machoService.male = this.male;
-         // this.machoService.setCollection(`/users/${user.}/male/${this.male.id}/vacinas/`);
       }
       else{
         await this.machoService.update({

@@ -46,16 +46,33 @@
     <ion-grid fixed>
       <ion-row>
         <ion-col size="6">
-          <ion-button id="wing" (click)="onVacina(maleId)">Vacinas</ion-button>
-
+          <ion-button
+            id="wing"
+            (click)="onVacina(maleId)"
+            [disabled]="pageTitle==='Novo Animal'"
+          >
+            Vacinas
+          </ion-button>
         </ion-col>
         <ion-col size="6">
-          <ion-button id="wing" (click)="onPeso(maleId)">Pesagens</ion-button>
+          <ion-button
+            id="wing"
+            (click)="onPeso(maleId)"
+            [disabled]="pageTitle==='Novo Animal'"
+          >
+            Pesagens
+          </ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
 
-    <ion-button id="submit" type="submit" [disabled]="maleForm.invalid" expand="full" >Salvar</ion-button
+    <ion-button
+      id="submit"
+      type="submit"
+      [disabled]="maleForm.invalid"
+      expand="full"
     >
+      Salvar
+    </ion-button>
   </form>
 </ion-content>

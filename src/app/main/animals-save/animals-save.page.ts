@@ -94,4 +94,8 @@ export class AnimalsSavePage implements OnInit {
   onPeso(animalId): void{
     this.navCtrl.navigateForward(['main', 'edit-female', animalId, 'pesagens']);
   }
+
+  onMortos(animalId): void{
+    this.navCtrl.navigateForward(['main', 'edit-female', animalId, 'montas']);
+  }
 }

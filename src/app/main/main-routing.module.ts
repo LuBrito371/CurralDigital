@@ -32,14 +32,9 @@ const routes: Routes = [
               ),
           },
           {
-            path: 'monta',
+            path: 'montas',
             loadChildren: () =>
-              import('./monta/monta.module').then((m) => m.MontaPageModule),
-          },
-          {
-            path: 'parto',
-            loadChildren: () =>
-              import('./parto/parto.module').then((m) => m.PartoPageModule),
+              import('./morto/morto.module').then((m) => m.MortoPageModule),
           },
           {
             path: 'pesagens',
@@ -92,6 +87,11 @@ const routes: Routes = [
               import('./peso/peso.module').then((m) => m.PesoPageModule),
           },
         ],
+      },
+      {
+        path: 'info',
+        loadChildren: () =>
+          import('./info/info.module').then((m) => m.InfoPageModule),
       },
       {
         path: '',

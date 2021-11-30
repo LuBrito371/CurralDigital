@@ -49,18 +49,13 @@
           </ion-button>
         </ion-col>
         <ion-col size="4">
-          <ion-button id="wing" (click)="onMontas(animalId)" [disabled]="animalForm.get('apartação').value === ''">
-            Montas
-          </ion-button>
-        </ion-col>
-        <ion-col size="4">
-          <ion-button id="wing" (click)="onPartos(animalId)" [disabled]="animalForm.get('apartação').value === ''">
-            Partos
-          </ion-button>
-        </ion-col>
-        <ion-col size="4">
           <ion-button id="wing" (click)="onPeso(animalId)" [disabled]="pageTitle ==='Novo Animal'">
             Pesagens
+          </ion-button>
+        </ion-col>
+        <ion-col size="4">
+          <ion-button id="wing" (click)="onMortos(animalId)" [disabled]="animalForm.get('apartação').value === ''">
+            Montas
           </ion-button>
         </ion-col>
       </ion-row>

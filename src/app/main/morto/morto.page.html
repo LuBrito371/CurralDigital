@@ -8,13 +8,7 @@
 <ion-content class="ion-padding">
   <form [formGroup]="montaForm">
     <ion-list>
-      <ion-item>
-        <ion-label>Ordem: </ion-label>
-        <ion-input
-          type="number"
-          formControlName="ordem"
-        ></ion-input>
-      </ion-item>
+
       <ion-item>
         <ion-label>Data: </ion-label>
         <ion-input
@@ -37,18 +31,17 @@
     </ion-button>
   </form>
 
-  <ion-list *ngIf="(monta$ | async) as montas">
+<ion-list *ngIf="(monta$ | async) as montas">
     <ng-container *ngIf="montas.length > 0; else noMontas">
-      <app-montas
+      <app-monta-item
         *ngFor="let monta of montas"
         [monta]="monta"
         (delete)="onDelete($event)"
-      ></app-montas>
+      ></app-monta-item>
     </ng-container>
     <ng-template #noMontas>
       <ion-item lines="none" class="ion-padding"
-        >Insira qual a ordem da monta/inseminação artificial e depois a data em
-        que foi realizada</ion-item
+        >Insira a data em que a monta/inseminação artificial bem sucedida foi realizada</ion-item
       >
     </ng-template>
   </ion-list>

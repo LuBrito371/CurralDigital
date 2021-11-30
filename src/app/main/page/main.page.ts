@@ -21,9 +21,11 @@ export class MainPage implements OnInit {
   desmamadoF: number;
   prenhes: number;
   cobertura: number;
+  aptas: number;
   concepcao = 0;
   desmame = 0;
   prenhez = 0;
+  servico = 0;
 
   constructor(
     private machoService: MachoService,
@@ -37,17 +39,16 @@ export class MainPage implements OnInit {
 
   }
 
-
-  ionViewDidEnter() {
-
+  ionViewWillEnter() {
     this.maleLength();
     this.femaleLength();
     this.bezerrosLength();
     this.montaLength();
-    this.coberturaLength();
-    this.taxaDesmame();
+    this.aptasLength();
+    this.taxaServico();
     this.taxaConcepcao();
     this.taxaPrenhez();
+    this.taxaDesmame();
 
   }
 
@@ -63,12 +64,11 @@ export class MainPage implements OnInit {
     });
   }
 
-  coberturaLength(){
-
-    if(this.females !== 0){
-      this.cobertura = this.females-(this.prenhes+this.mamandoF);
-    }else{
-      this.cobertura = 0;
+  aptasLength() {
+    if (this.females !== 0) {
+      this.aptas = this.females - (this.prenhes + this.mamandoF + this.cobertura);
+    } else {
+      this.aptas = 0;
     }
   }
 
@@ -98,19 +98,16 @@ export class MainPage implements OnInit {
         }
       }
 
-      this.mamando = contFM + contMM;
+      this.mamando = contMM;
       this.mamandoF = contFM;
       this.desmamado = contMD;
       this.desmamadoF = contFD;
-
-
     });
   }
 
-
-
   montaLength() {
-    let cont = 0;
+    let contC = 0;
+let contP = 0;
     this.femaleService.collection.ref.get().then((docs) => {
       docs.forEach((doc) => {
         const id = doc.id;
@@ -119,49 +116,56 @@ export class MainPage implements OnInit {
           .collection('montas')
           .valueChanges()
           .subscribe((x) => {
-            this.femaleService.collection
-              .doc(id)
-              .collection('partos')
-              .valueChanges()
-              .subscribe((y) => {
-                if (x.length > 0) {
-                  if (x.length > y.length) {
-                    cont++;
-                  }
+            if (x.length > 0) {
+              for (let i = 0; i < x.length; i++) {
+                if (x[i].sucesso === 'Sim' && x[i].parto === '') {
+                  contP++;
                 }
-                this.prenhes = cont;
-              });
+                if(x[i].sucesso === ''){
+                  contC++;
+                }
+              }
+            }
+            this.prenhes = contP;
+            this.cobertura = contC;
           });
       });
     });
-
   }
 
-
+  taxaServico(){
+    let taxa;
+    const desmame = this.cobertura;
+    if (this.aptas > 0) {
+      const decimal = Math.round(desmame * 100) / this.aptas;
+      taxa = decimal.toFixed(1);
+      this.servico = taxa;
+    }
+  }
 
   taxaDesmame() {
     let taxa;
-    const desmame = this.desmamado+this.cobertura;
-    if (desmame > 0) {
-      const decimal = Math.round(desmame * 100) / (this.mamando + desmame);
+    const desmame = this.desmamado + this.desmamadoF;
+    if (this.cobertura > 0) {
+      const decimal = Math.round(desmame * 100) / this.cobertura;
       taxa = decimal.toFixed(1);
       this.desmame = taxa;
     }
   }
 
   taxaConcepcao() {
-    let taxa ;
-    if (this.females > 0) {
-      const decimal = Math.round(this.prenhes * 100) / this.females;
+    let taxa;
+    if (this.cobertura > 0) {
+      const decimal = Math.round(this.prenhes * 100) / this.cobertura;
       taxa = decimal.toFixed(1);
       this.concepcao = taxa;
     }
   }
 
   taxaPrenhez() {
-    let taxa ;
-       if (this.cobertura > 0) {
-      const decimal = Math.round(this.prenhes * 100) / this.cobertura;
+    let taxa;
+    if (this.aptas > 0) {
+      const decimal = Math.round(this.prenhes * 100) / this.aptas;
       taxa = decimal.toFixed(1);
 
       this.prenhez = taxa;

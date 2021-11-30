@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
+
+import { MortoPageRoutingModule } from './morto-routing.module';
+
+import { MortoPage } from './morto.page';
 import { SharedModule } from 'src/app/shared/shared/shared.module';
 import { ComponentsModule } from '../components/components.module';
-import { PartoPageRoutingModule } from './parto-routing.module';
-
-import { PartoPage } from './parto.page';
 
 @NgModule({
   imports: [
     SharedModule,
     ComponentsModule,
-    PartoPageRoutingModule
+    MortoPageRoutingModule
   ],
-  declarations: [PartoPage]
+  declarations: [MortoPage]
 })
-export class PartoPageModule {}
+export class MortoPageModule {}
