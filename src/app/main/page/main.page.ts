@@ -117,6 +117,7 @@ let contP = 0;
           .valueChanges()
           .subscribe((x) => {
             if (x.length > 0) {
+              this.desmamadoF--;
               for (let i = 0; i < x.length; i++) {
                 if (x[i].sucesso === 'Sim' && x[i].parto === '') {
                   contP++;
