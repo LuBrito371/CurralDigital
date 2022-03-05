@@ -138,7 +138,7 @@ let contP = 0;
     let taxa;
     const desmame = this.cobertura;
     if (this.aptas > 0) {
-      const decimal = Math.round(desmame * 100) / this.aptas;
+      const decimal = Math.round(desmame * 100) / this.aptas+desmame;
       taxa = decimal.toFixed(1);
       this.servico = taxa;
     }
@@ -157,7 +157,7 @@ let contP = 0;
   taxaConcepcao() {
     let taxa;
     if (this.cobertura > 0) {
-      const decimal = Math.round(this.prenhes * 100) / this.cobertura;
+      const decimal = Math.round(this.prenhes * 100) / this.cobertura+this.prenhes;
       taxa = decimal.toFixed(1);
       this.concepcao = taxa;
     }
@@ -166,7 +166,7 @@ let contP = 0;
   taxaPrenhez() {
     let taxa;
     if (this.aptas > 0) {
-      const decimal = Math.round(this.prenhes * 100) / this.aptas;
+      const decimal = Math.round(this.prenhes * 100) / this.aptas+this.cobertura+this.prenhes;
       taxa = decimal.toFixed(1);
 
       this.prenhez = taxa;
